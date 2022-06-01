@@ -18,3 +18,7 @@ Flutter路由封装
 ## 扩展
 本文还对初始化sdk的类做了统一管理，通过FutureBuilder进行控制，在异步处理完毕之后才正式加载界面信息<预加载sdk>
 （详见：lib/util/pre_init.dart）
+
+## 使用注意点：
+对于新增的页面，路由信息必须在lib/util/route_helper中进行声明
+查找注释@Iteration must be implemented 并在对应的方法中进行添加新增的页面
