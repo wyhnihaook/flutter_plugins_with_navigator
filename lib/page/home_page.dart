@@ -14,7 +14,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
+
+  RouteChangeListener? _listener;
+
+  @override
+  void initState(){
+    super.initState();
+    //新增监听器，上下基本一起出现，有新增，就有移除
+    NavigatorHelper.getInstance().addListener(_listener = (current, pre) {
+      if(widget == current.page || current.page is HomePage){
+        print("HomePage : onResume");
+      }else if(widget == pre?.page || pre?.page is HomePage){
+        print("HomePage : onPause");
+      }
+    });
+  }
+
+
+  @override
+  void dispose(){
+    //生命周期回收时解除监听器
+    NavigatorHelper.getInstance().removeListener(_listener!);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Text('首页页面'),
           ElevatedButton(onPressed: (){
-            NavigatorHelper.getInstance().onJumpTo(RoutePageType.detail,args: {"id":2});
+            NavigatorHelper.getInstance().onJumpTo(RoutePageType.message);
           }, child: Text('跳转到详情'))
           
         ],

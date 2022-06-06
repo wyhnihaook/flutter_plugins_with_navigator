@@ -34,6 +34,9 @@ class _DetailPageState extends State<DetailPage> {
             NavigatorHelper.getInstance().onJumpTo(RoutePageType.home);
           }, child: Text('跳转到首页')),
           ElevatedButton(onPressed: (){
+            NavigatorHelper.getInstance().onJumpTo(RoutePageType.message);
+          }, child: Text('跳转到消息页面')),
+          ElevatedButton(onPressed: (){
             //可以结合启动模式测试当前的detail页面,设置为Standard模式，将会无限制一直新建
             NavigatorHelper.getInstance().onJumpTo(RoutePageType.detail,args:  {"id":3});
           }, child: Text('继续跳转自身detial')),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_plugins_with_componentization/page/message_page.dart';
 
 import '../page/detail_page.dart';
 import '../page/home_page.dart';
@@ -18,6 +19,13 @@ enum LaunchMode{
   singleMainTop,//栈顶模式，表示当前一定是首页负载内容页面，一个App中只能有一个页面有负载属性，保证当前作为首页不能再返回上一级页面
 }
 
+//生命周期展示，当前只用于tab中子容器的回调类型展示，主容器还是需要通过自身类型匹配生效
+enum LifeCycle{
+  onResume,//隐藏后显示回调
+  onPause,//当前界面隐藏显示
+  unKnow,//未知生命周期，不需要执行的生命周期传递该类型
+}
+
 //声明当前路由跳转的路由页面类型
 ///@Iteration must be implemented
 /*每次新增路由页面必须新增枚举*/
@@ -25,6 +33,7 @@ enum RoutePageType {
   login(PageAttribute(),url: "/login"),
   home(PageAttribute(launchMode: LaunchMode.singleMainTop),url: "/home") ,
   detail(PageAttribute(launchMode: LaunchMode.singleTask),url: "/detail") ,
+  message(PageAttribute(launchMode: LaunchMode.singleInstance),url: "/message"),
 
   unknown(PageAttribute(),url: "/unknown")
 
@@ -50,6 +59,8 @@ RoutePageType getPageType(MaterialPage page){
     return RoutePageType.home;
   }else if(page.child is DetailPage){
     return RoutePageType.detail;
+  }else if(page.child is MessagePage){
+    return RoutePageType.message;
   }else{
     return RoutePageType.unknown;
   }
@@ -66,8 +77,10 @@ Widget getPage(RoutePageType routePageType,{Map? arguments}){
       return HomePage();
     case RoutePageType.detail:
       return DetailPage(arguments:arguments);
+    case RoutePageType.message:
+      return MessagePage();
     default:
-      return SizedBox();
+      return const SizedBox();
   }
 }
 

@@ -178,7 +178,8 @@ class MyRouterDelegate extends RouterDelegate<List<RouteSettings>>
         ];
       }
     }
-
+    //新增数据进行处理
+    NavigatorHelper.getInstance().notify(_pages);
     print(_pages);
     //当前构建导航器
     return Navigator(
@@ -190,6 +191,9 @@ class MyRouterDelegate extends RouterDelegate<List<RouteSettings>>
         if (!route.didPop(result)) {
           return false;
         } else {
+          //移除之后进行通知页面状态更新
+
+          NavigatorHelper.getInstance().notify(_pages,isPop: true);
           return true;
         }
       },
