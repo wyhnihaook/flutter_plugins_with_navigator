@@ -9,8 +9,9 @@ Flutter路由封装
 由此衍生出概念性的启动模式，详见：lib/util/route_helper.dart文件  
 
 ## main.web.dart
-运行web端的入口文件  
-通过命令行：flutter run -t lib/main.web.dart -d chrome  
+运行web/h5端的入口文件  
+通过命令行web：flutter run -t lib/main.web.dart -d chrome  
+通过命令行h5：flutter run -t lib/main.web.dart
 相对移动端的路由控制基础上，还需要控制网址url上的显示，需要使用MaterialApp.router的构造函数进行实现  
 实现了url切换的监听以及参数传递时同步url信息的处理
 （基本实现逻辑与main.dart基本一致，新增的方法大多是用来根据url的路径进行快捷跳转的适配）

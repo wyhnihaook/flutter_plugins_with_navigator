@@ -168,23 +168,34 @@ class MyRouterDelegate extends RouterDelegate<List<RouteSettings>>
 
     print(_pages);
     //当前构建导航器
-    return  Navigator(
+    //WillPopScope用于处理设备自带返回键回调。默认是直接点击返回退出当前Flutter项目
+    return  WillPopScope(child: Navigator(
       key: navigatorKey, //同步当前操作路由的key
       pages: List.of(_pages), //当前路由的Page对象集合
       onPopPage: (route, result) {
+        print("当前页面返回箭头点击监听");
+        print((route.settings as MaterialPage).child.toString());
         //返回功能处理
         //是否能返回上一页，进行截断 false：返回无效 true：能正常返回
         if (!route.didPop(result)) {
           return false;
         } else {
           //移除之后进行通知页面状态更新
+          //当前不会重新执行build，直接会将当前数据从_pages路由栈中移除
 
           NavigatorHelper.getInstance().notify(_pages,isPop: true);
 
+          ///返回延迟刷新，验证可得，当前返回是将路由栈中的pages进行操作，和当前赋值的_pages不是同一个东西
+          ///已经在赋值时内存隔离，所以当前处理返回的时候，需要直接将_pages中最后一层路由移除
+          /// Future.delayed(Duration(seconds: 2),(){
+          ///   notifyListeners();
+          /// });
+
+          //从Navigator内部维护的pages路由栈中移除当前页面
           return true;
         }
       },
-    );
+    ), onWillPop: () async => !await navigatorKey.currentState!.maybePop());
   }
 
 

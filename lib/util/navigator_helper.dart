@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_plugins_with_componentization/page/message_page.dart';
 import 'package:flutter_plugins_with_componentization/util/route_helper.dart';
 
 ///描述:当前路由帮助类 navigator 2.0专用
@@ -117,11 +116,8 @@ class NavigatorHelper extends _RouteListener{
   }
 
   //需要判断当前路由和之前的路由内容的差距
-  void notify(List<MaterialPage> currentPages,{bool isPop = false}){
+  void notify(List<MaterialPage> pages,{bool isPop = false}){
     //直接获取最后一个数据进行赋值，最后一个为当前最先展示数据
-
-    var pages = [];
-    pages = [...currentPages];
 
     if(isPop){
       //移除当前数据

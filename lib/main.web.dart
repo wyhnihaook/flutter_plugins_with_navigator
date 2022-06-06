@@ -243,6 +243,25 @@ class MyRouterDelegate extends RouterDelegate<List<RouteSettings>>
 //ChangeNotifier 修改路由状态
 //PopNavigatorRouterDelegateMixin 复用当前的popRoute功能
 
+
+  //复写返回功能，实现h5模式或者网页的返回，当前点击返回需要同步当前路由栈内容《默认是不同步的》
+  @override
+  Future<bool> popRoute() {
+    if (canPop()) {
+      //点击返回，相当于路由层级移除一级
+      NavigatorHelper.getInstance().notify(_pages,isPop: true);
+      notifyListeners();
+      return Future.value(true);
+    }
+    //通过下面数据，在弹窗view中获取context进行app的关闭，目前只做阻断操作
+    // Navigator.pop(context)
+    return Future.value(true);
+  }
+
+
+  bool canPop() {
+    return _pages.length > 1;
+  }
 }
 
 //web路由相关,泛型为当前路由信息
