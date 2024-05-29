@@ -9,6 +9,9 @@ import 'package:flutter_plugins_with_componentization/util/pre_init.dart';
 import 'package:flutter_plugins_with_componentization/util/route_helper.dart';
 
 ///执行运行命令运行web环境的配置路由文件：flutter run -t lib/main.web.dart -d chrome
+///编译打包指定入口：flutter build web -t lib/main.web.dart
+///参考链接：https://www.jianshu.com/p/6213f8a88288
+///使用python容器进行线上部署参考：https://blog.csdn.net/qq_41642795/article/details/127807517
 ///目前暂时不做整合，避免路由一些交互的不同造成代码复杂性的提高
 
 ///********如果要兼容多个平台的运行，当前sdk的选型特别重要，必须要兼容全部的运行平台*********
